@@ -386,13 +386,13 @@ Track progress by checking off items. Each phase is a logical unit of work that 
 - [x] Footer renders correctly
 - [x] Test on `npx serve .` — confirm fetch works, no console errors
 
-### Phase 7 — Algorithm Integration (Future Session)
-- [ ] Define the position sizing formula
-- [ ] Implement in `recalculate()`
+### Phase 7 — Algorithm Integration ✅
+- [x] Define the position sizing formula
+- [x] Implement in `recalculate()`
 - [x] Add summary line (e.g., Entry→SL distance %)
-- [ ] Validate edge cases (SL > Entry for longs, zero values, extreme leverage)
+- [x] Validate edge cases (SL > Entry for longs, zero values, extreme leverage)
 
-### Phase 8 — Context Doc Update (Post-Build)
-- [ ] Rewrite `CONTEXT.md` to reflect the new Position Calc project
-- [ ] Remove all MACROS references
-- [ ] Document new data schema, JS conventions, and CSS organization
+### Phase 8 — Context Doc Update (Post-Build) ✅
+- [x] Rewrite `CONTEXT.md` to reflect the new Position Calc project
+- [x] Remove all MACROS references
+- [x] Document new data schema, JS conventions, and CSS organization

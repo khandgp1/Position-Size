@@ -74,7 +74,7 @@ function renderCalculator(container) {
             </div>
             <div class="calc-field">
                 <label class="calc-label" for="risk-amount">Risk ($)</label>
-                <input type="number" inputmode="decimal" id="risk-amount" class="calc-input" placeholder="0.00" step="any">
+                <input type="number" inputmode="decimal" id="risk-amount" class="calc-input" placeholder="0.00" step="any" value="10">
             </div>
         </div>
         <hr class="calc-divider">
@@ -89,7 +89,7 @@ function renderCalculator(container) {
             </div>
         </div>
         <div class="calc-summary" id="calc-summary-line">
-            Actual Risk: —
+            Actual Risk: — | Liq. Price: —
         </div>
     `;
     
@@ -130,7 +130,8 @@ function recalculate() {
     const risk = parseFloat(riskEl.value) || 0;
     
     // ─── ALGORITHM INTEGRATION ───
-    let leverage = 0; // Keeping as placeholder per user request
+    let leverage = 0; 
+    let liquidationPrice = 0;
     let positionSize = 0;
     let actualRisk = 0;
     let distancePct = 0;
@@ -146,6 +147,8 @@ function recalculate() {
             if (result) {
                 positionSize = result.positionSize;
                 actualRisk = result.actualRisk;
+                leverage = result.leverage;
+                liquidationPrice = result.liquidationPrice;
             }
         }
     }
@@ -155,15 +158,16 @@ function recalculate() {
     const posOut = document.getElementById('position-output');
     const summaryOut = document.getElementById('calc-summary-line');
     
-    if (levOut) levOut.textContent = leverage > 0 ? `${leverage.toFixed(2)}x` : '—';
+    if (levOut) {
+        if (leverage === "∞") levOut.textContent = "∞";
+        else levOut.textContent = leverage > 0 ? `${leverage}x` : '—';
+    }
     if (posOut) posOut.textContent = positionSize > 0 ? `$${positionSize.toFixed(2)}` : '—';
     
     if (summaryOut) {
-        if (actualRisk > 0) {
-            summaryOut.textContent = `Actual Risk: $${actualRisk.toFixed(2)}`;
-        } else {
-            summaryOut.textContent = 'Actual Risk: —';
-        }
+        const riskStr = actualRisk > 0 ? `$${actualRisk.toFixed(2)}` : '—';
+        const liqStr = liquidationPrice > 0 ? `$${liquidationPrice.toFixed(2)}` : '—';
+        summaryOut.textContent = `Actual Risk: ${riskStr} | Liq. Price: ${liqStr}`;
     }
 }
 

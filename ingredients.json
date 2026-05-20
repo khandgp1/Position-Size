@@ -1,0 +1,44 @@
+{
+  "fage": {
+    "name": "0% Fage Greek Yogurt",
+    "protein": 18,
+    "calories": 90,
+    "baseGrams": 170,
+    "defaultGrams": 170
+  },
+  "hemp": {
+    "name": "Hemp Hearts",
+    "protein": 10,
+    "calories": 180,
+    "baseGrams": 30,
+    "defaultGrams": 40
+  },
+  "honey": {
+    "name": "Honey",
+    "protein": 0,
+    "calories": 60,
+    "baseGrams": 21,
+    "defaultGrams": 30
+  },
+  "chicken": {
+    "name": "Kirkland Rotisserie Chicken",
+    "protein": 19,
+    "calories": 140,
+    "baseOz": 3,
+    "defaultOz": 6
+  },
+  "blueberries": {
+    "name": "Blueberries",
+    "protein": 1,
+    "calories": 84,
+    "baseGrams": 148,
+    "defaultGrams": 148
+  },
+  "kiwis": {
+    "name": "Kiwis",
+    "protein": 1,
+    "calories": 84,
+    "baseGrams": 150,
+    "defaultGrams": 150
+  }
+}

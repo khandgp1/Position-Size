@@ -51,7 +51,7 @@ This file will contain:
  * @param {number} entry - BTC entry price ($)
  * @param {number} sl    - BTC stop-loss price ($)
  * @param {number} risk  - Dollar amount willing to lose ($)
- * @returns {{ positionSize: number, positionUnitSize: number } | null}
+ * @returns { { positionSize: number, positionUnitSize: number } | null }
  *          Returns null if inputs are invalid.
  */
 function calculatePositionSize(entry, sl, risk)

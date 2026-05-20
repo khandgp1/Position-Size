@@ -1,0 +1,90 @@
+[
+  {
+    "scenario": "1. Standard calculation",
+    "inputs": {
+      "entry": 76858.10,
+      "sl": 76723.40,
+      "risk": 10
+    }
+  },
+  {
+    "scenario": "2. Tight stop (small distance)",
+    "inputs": {
+      "entry": 100000,
+      "sl": 99900,
+      "risk": 50
+    }
+  },
+  {
+    "scenario": "3. Wide stop (large distance)",
+    "inputs": {
+      "entry": 100000,
+      "sl": 90000,
+      "risk": 500
+    }
+  },
+  {
+    "scenario": "4. Small risk",
+    "inputs": {
+      "entry": 100000,
+      "sl": 99000,
+      "risk": 10
+    }
+  },
+  {
+    "scenario": "5. Entry <= 0 -> null",
+    "inputs": {
+      "entry": -1,
+      "sl": 99000,
+      "risk": 100
+    }
+  },
+  {
+    "scenario": "6. SL <= 0 -> null",
+    "inputs": {
+      "entry": 100000,
+      "sl": -500,
+      "risk": 100
+    }
+  },
+  {
+    "scenario": "7. Risk <= 0 -> null",
+    "inputs": {
+      "entry": 100000,
+      "sl": 99000,
+      "risk": 0
+    }
+  },
+  {
+    "scenario": "8. SL >= Entry (equal) -> null",
+    "inputs": {
+      "entry": 100000,
+      "sl": 100000,
+      "risk": 100
+    }
+  },
+  {
+    "scenario": "9. SL > Entry -> null",
+    "inputs": {
+      "entry": 100000,
+      "sl": 101000,
+      "risk": 100
+    }
+  },
+  {
+    "scenario": "10. Large risk setup",
+    "inputs": {
+      "entry": 65000,
+      "sl": 63500,
+      "risk": 1500
+    }
+  },
+  {
+    "scenario": "11. High price asset scaling",
+    "inputs": {
+      "entry": 250000,
+      "sl": 240000,
+      "risk": 500
+    }
+  }
+]

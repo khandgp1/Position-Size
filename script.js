@@ -89,7 +89,7 @@ function renderCalculator(container) {
             </div>
         </div>
         <div class="calc-summary" id="calc-summary-line">
-            Enter values to calculate position metrics.
+            Actual Risk: —
         </div>
     `;
     
@@ -129,21 +129,27 @@ function recalculate() {
     const sl = parseFloat(slEl.value) || 0;
     const risk = parseFloat(riskEl.value) || 0;
     
-    // ─── ALGORITHM PLACEHOLDER ───
-    // TODO: Replace with actual position sizing formula
-    let leverage = 0;
+    // ─── ALGORITHM INTEGRATION ───
+    let leverage = 0; // Keeping as placeholder per user request
     let positionSize = 0;
+    let actualRisk = 0;
     let distancePct = 0;
     
     if (entry > 0 && sl > 0 && risk > 0) {
-        // Placeholder stub values:
-        // leverage = 0;
-        // positionSize = 0;
         if (entry !== sl) {
             distancePct = Math.abs((entry - sl) / entry) * 100;
         }
+
+        // Use global calculatePositionSize function from algo.js
+        if (typeof calculatePositionSize === 'function') {
+            const result = calculatePositionSize(entry, sl, risk);
+            if (result) {
+                positionSize = result.positionSize;
+                actualRisk = result.actualRisk;
+            }
+        }
     }
-    // ─── END PLACEHOLDER ───
+    // ─── END ALGORITHM INTEGRATION ───
     
     const levOut = document.getElementById('leverage-output');
     const posOut = document.getElementById('position-output');
@@ -153,10 +159,10 @@ function recalculate() {
     if (posOut) posOut.textContent = positionSize > 0 ? `$${positionSize.toFixed(2)}` : '—';
     
     if (summaryOut) {
-        if (entry > 0 && sl > 0) {
-            summaryOut.textContent = `Entry → SL Distance: ${distancePct.toFixed(2)}%`;
+        if (actualRisk > 0) {
+            summaryOut.textContent = `Actual Risk: $${actualRisk.toFixed(2)}`;
         } else {
-            summaryOut.textContent = 'Enter values to calculate position metrics.';
+            summaryOut.textContent = 'Actual Risk: —';
         }
     }
 }

@@ -1,15 +1,16 @@
 :root {
-    --bg-color: #F5F5F3;
-    /* Matte Off-White */
-    --card-bg: #FFFFFF;
-    --text-main: #2D2D2D;
-    /* Slate Charcoal */
-    --text-muted: #757575;
-    --accent: #8A9A5B;
-    /* Muted Sage */
-    --border: #E0E0DE;
+    --bg-color: #F5F5F3;      /* Matte Off-White */
+    --card-bg: #FFFFFF;       /* White Card Bg */
+    --text-main: #2D2D2D;     /* Slate Charcoal */
+    --text-muted: #757575;    /* Muted Gray */
+    --accent: #8A9A5B;        /* Sage Green */
+    --border: #E0E0DE;        /* Subtle Border */
+    --output-bg: rgba(138, 154, 91, 0.15); /* Sage Tinted Output Bg */
 }
 
+/* ============================================================
+   Base Typography & Page Layout
+   ============================================================ */
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
@@ -17,8 +18,6 @@ body {
     margin: 0;
     line-height: 1.6;
 }
-
-
 
 header {
     text-align: center;
@@ -37,18 +36,33 @@ h1 {
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 3px;
+    line-height: 1.5;
 }
 
-.section-description {
-    max-width: 500px;
-    margin: 15px auto 0;
-    font-size: 0.95rem;
+#main-content {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.loader {
+    text-align: center;
     color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 300;
-    font-style: italic;
+    font-size: 1rem;
+    padding: 40px 0;
 }
 
+footer {
+    text-align: center;
+    padding: 40px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   Sticky Navigation Tabs
+   ============================================================ */
 #tab-container {
     display: flex;
     justify-content: center;
@@ -72,6 +86,11 @@ h1 {
     color: var(--text-muted);
     transition: all 0.3s ease;
     white-space: nowrap;
+    font-weight: 500;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
 }
 
 .tab-btn.active {
@@ -80,305 +99,17 @@ h1 {
     font-weight: bold;
 }
 
-#workout-content {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.exercise-card {
-    background: var(--card-bg);
-    padding: 25px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    border: 1px solid var(--border);
-    transition: transform 0.2s ease;
-}
-
-.exercise-card:active {
-    transform: scale(0.98);
-    background-color: #FAFAFA;
-}
-
-.exercise-card h3 {
-    margin: 0 0 10px 0;
-    font-weight: 500;
-}
-
-.meta {
-    font-size: 0.9rem;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.tips {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    border-left: 2px solid var(--accent);
-    padding-left: 15px;
-    margin-top: 15px;
-}
-
-footer {
-    text-align: center;
-    padding: 40px;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
-
-/* --- Intro Tab Specific Layouts --- */
-
-/* --- Intro Tab - Bento Layout --- */
-
-.intro-container {
-    animation: fadeIn 0.5s ease;
-}
-
+/* ============================================================
+   Animations
+   ============================================================ */
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-.layout-bento .grid-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.layout-bento .bento-card.clickable-card {
-    cursor: pointer;
-    border: 1px solid rgba(138, 154, 91, 0.2);
-    /* Soft sage border */
-}
-
-.layout-bento .bento-card.clickable-card:hover {
-    border-color: var(--accent);
-    background: #FAFAFA;
-}
-
-.layout-bento .bento-card {
-    background: #FFF;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    transition: transform 0.3s ease;
-}
-
-.layout-bento .bento-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
-}
-
-.layout-bento h3 {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--accent);
-    margin-bottom: 8px;
-}
-
-.layout-bento .step-note {
-    font-size: 0.9rem;
-    color: var(--text-main);
-}
-
-/* --- Side Drawer & Overlay --- */
-
-#drawer-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateZ(0);
-    /* Safari GPU fix */
-}
-
-#drawer-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-#side-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 450px;
-    max-width: 90vw;
-    background: #1A1A1A;
-    /* Deeper Charcoal */
-    color: #FFF;
-    z-index: 1001;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
-}
-
-#side-drawer.active {
-    transform: translateX(0);
-}
-
-.drawer-header {
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.drawer-header h3 {
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    color: var(--accent);
-}
-
-#close-drawer {
-    background: none;
-    border: none;
-    color: #FFF;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.2s;
-    -webkit-appearance: none;
-    /* Safari button fix */
-}
-
-#close-drawer:hover {
-    opacity: 1;
-}
-
-.drawer-content {
-    padding: 30px;
-    flex: 1;
-    overflow-y: auto;
-}
-
-/* Placeholder & Empty States */
-.placeholder-content {
-    animation: fadeIn 0.8s ease;
-}
-
-.shimmer-line {
-    height: 10px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
-    background-size: 200% 100%;
-    background-repeat: no-repeat;
-    animation: shimmer 2s infinite;
-    border-radius: 4px;
-    margin: 15px 0;
-}
-
-.shimmer-line.shorter {
-    width: 60%;
-}
-
-.implementation-placeholder {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    padding: 40px;
-    overflow: hidden;
-    animation: slowFadeIn 1s ease-out;
-}
-
-.placeholder-watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 15rem;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.02);
-    z-index: 0;
-    pointer-events: none;
-    user-select: none;
-}
-
-.heartbeat-pulse {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    position: relative;
-    margin-bottom: 40px;
-    opacity: 0.5;
-    z-index: 1;
-}
-
-.heartbeat-pulse::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -10%;
-    width: 20%;
-    height: 2px;
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
-    filter: blur(1px);
-    animation: heartbeat 3s infinite linear;
-}
-
-.placeholder-content-wrapper {
-    position: relative;
-    z-index: 2;
-}
-
-.placeholder-content-wrapper h3 {
-    font-weight: 300;
-    letter-spacing: 5px;
-    color: var(--accent);
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-.placeholder-content-wrapper p {
-    color: #888;
-    font-size: 0.95rem;
-    max-width: 280px;
-    line-height: 1.6;
-    font-weight: 300;
-}
-
-@keyframes heartbeat {
-    0% {
-        left: -20%;
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 1;
-    }
-
-    100% {
-        left: 100%;
-        opacity: 0;
     }
 }
 
@@ -387,440 +118,173 @@ footer {
         opacity: 0;
         transform: scale(0.98);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: 200% 0;
-    }
-
-    100% {
-        background-position: -200% 0;
-    }
+.fadeIn {
+    animation: fadeIn 0.5s ease forwards;
 }
 
-/* --- Blueprint Layout Styles --- */
-
-.blueprint-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    animation: fadeIn 0.5s ease;
+.slowFadeIn {
+    animation: slowFadeIn 0.6s ease-out forwards;
 }
 
-.blueprint-layout section h4 {
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.framework-subtitle {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: -10px;
-    margin-bottom: 20px;
-    font-style: italic;
-    letter-spacing: 0.5px;
-}
-
-.blueprint-intro p {
-    font-size: 1rem;
-    color: #CCC;
-    line-height: 1.6;
-}
-
-.blueprint-intro strong {
-    color: #FFF;
-}
-
-.framework-desc {
-    font-size: 0.9rem;
-    color: #AAA;
-    margin-bottom: 20px;
-}
-
-.minor-instruction {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: -10px;
-    margin-bottom: 15px;
-}
-
-.workflow-marker {
-    font-size: 0.8rem;
-    color: #888;
-    margin: 30px 0;
-    text-align: center;
-    width: 100%;
-}
-
-.final-instruction {
-    margin: 8px 0;
-}
-
-.framework-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.framework-list li {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.framework-list li strong {
-    color: var(--accent);
-    display: block;
-    margin-bottom: 3px;
-}
-
-.pro-tip {
-    background: rgba(138, 154, 91, 0.1);
-    border-left: 3px solid var(--accent);
-    padding: 15px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: #DDD;
-    margin: 20px 0;
-}
-
-.pro-tip strong {
-    color: var(--accent);
-}
-
-.prompt-box {
-    background: #D4C4A8;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-left: 3px solid var(--accent);
-    border-radius: 8px;
+/* ============================================================
+   Calculator Card Styles
+   ============================================================ */
+.calc-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    margin-top: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 40px;
 }
 
-.prompt-header {
-    background: #C8B89A;
-    padding: 12px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.75rem;
-    color: #5D5446;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+.calc-card-header {
+    padding: 25px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
 }
 
-.copy-btn {
-    background: #3D362D;
-    border: 1px solid #3D362D;
-    color: #D4C4A8;
-    padding: 6px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.7rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.copy-btn:hover {
-    background: #25201A;
-    border-color: #25201A;
-}
-
-.prompt-box pre {
-    padding: 24px;
+.calc-card-header h3 {
     margin: 0;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    font-size: 0.85rem;
-    color: #2D2D2D;
-    white-space: pre-wrap;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--text-main);
+    text-transform: uppercase;
 }
 
-.strategy-steps {
+.calc-inputs {
+    padding: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.strategy-step {
+.calc-field {
     display: flex;
-    gap: 15px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.step-num {
-    background: var(--accent);
-    color: #FFF;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
+.calc-label {
+    font-size: 0.75rem;
     font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.step-content {
-    font-size: 0.9rem;
-    color: #CCC;
-}
-
-.step-content strong {
-    color: #FFF;
-    display: block;
-    margin-bottom: 2px;
-}
-
-/* --- Snippets Tab Specific Layout --- */
-
-/* Wider content area scoped to Snippets tab only */
-#workout-content.snippets-wide {
-    max-width: 1280px;
-}
-
-/* Wider content area scoped to Intro tab only */
-#workout-content.intro-wide {
-    max-width: 900px;
-}
-
-.snippets-container {
-    animation: fadeIn 0.5s ease;
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 30px;
-}
-
-/* Last item spans both columns when total count is odd */
-.snippet-item:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-}
-
-.snippet-item {
-    margin-bottom: 0;
-    /* Grid gap handles spacing */
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Prompt box grows to fill remaining cell height — equalizes heights per row */
-.snippet-item .prompt-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.snippet-item .prompt-box pre {
-    flex: 1;
-}
-
-.snippet-item h3 {
-    margin: 0 0 10px 0;
-    color: var(--accent);
-    font-weight: 400;
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
-}
-
-.snippet-note {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    font-style: italic;
-    font-weight: 300;
-}
-
-/* Collapse to single column on narrow viewports */
-@media (max-width: 768px) {
-    .snippets-container {
-        grid-template-columns: 1fr;
-    }
-
-    .snippet-item:last-child:nth-child(odd) {
-        grid-column: unset;
-    }
-}
-
-/* Prevent scroll when drawer is open (Enhanced for Safari) */
-body.drawer-open {
-    overflow: hidden;
-    height: 100vh;
-    touch-action: none;
-}
-
-
-/* --- Macro Calculator Table Styles --- */
-
-.macro-calc-container {
-    background: #FFFFFF;
-    border: 1px solid #E0E0DE;
-    border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 50px;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    animation: slowFadeIn 0.6s ease-out;
-}
-
-.calc-header h3 {
-    margin: 0 0 25px 0;
-    font-weight: 500;
-    letter-spacing: 2px;
-    color: var(--text-main);
-    text-align: center;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-}
-
-.macro-table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.table-row {
-    display: grid;
-    grid-template-columns: 1fr 0.25fr 0.6fr 0.6fr;
-    gap: 0 5px;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #F0F0EE;
-}
-
-.table-row.header {
-    background: #FAFAFA;
-    border-top: 1px solid #E0E0DE;
-    border-bottom: 2px solid #E0E0DE;
-    border-radius: 6px 6px 0 0;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-weight: 700;
-    white-space: nowrap;
+    color: var(--text-muted);
+    text-transform: uppercase;
 }
 
-
-.table-row.header .col-grams,
-.table-row.header .col-p,
-.table-row.header .col-c {
-    text-align: center;
-}
-
-.col-p {
-    margin-left: 25px;
-}
-
-.table-row.ingredient-row:hover {
-    background: #F9F9F7;
-}
-
-.table-row.total-row {
-    background: rgba(138, 154, 91, 0.15);
-    /* Stronger Sage tint */
-    border-top: 2px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
-    border-radius: 0 0 6px 6px;
-    font-weight: 700;
-    margin-top: 10px;
-    color: #3D442B;
-    /* Darker green for text */
-}
-
-.col-name {
-    font-size: 1rem;
-    color: var(--text-main);
-    font-weight: 500;
-}
-
-.col-grams {
-    text-align: center;
-}
-
-.col-grams input {
-    background: #FFFFFF;
+.calc-input {
+    background: var(--card-bg);
     border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    padding: 8px 12px;
+    border-radius: 6px;
+    padding: 12px 16px;
     color: var(--text-main);
-    font-size: 1rem;
-    width: 90px;
+    font-size: 1.1rem;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    text-align: right;
     transition: all 0.2s ease;
-    font-family: inherit;
-    text-align: center;
-    margin: 0 auto;
-    display: block;
-    /* Hide spinners */
+    box-sizing: border-box;
+    width: 100%;
     -moz-appearance: textfield;
 }
 
-.col-grams input::-webkit-outer-spin-button,
-.col-grams input::-webkit-inner-spin-button {
+/* Hide spin buttons */
+.calc-input::-webkit-outer-spin-button,
+.calc-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.col-grams input:focus {
+.calc-input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(138, 154, 91, 0.1);
+    box-shadow: 0 0 0 3px rgba(138, 154, 91, 0.15);
 }
 
-.col-p,
-.col-c {
-    font-size: 1.05rem;
-    text-align: center;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    color: #111;
+.calc-divider {
+    height: 2px;
+    background-color: var(--accent);
+    border: none;
+    margin: 0;
 }
 
-.col-p {
-    font-weight: 600;
+.calc-outputs {
+    background-color: var(--output-bg);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.col-c {
-    color: #555;
+.calc-output-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.total-row .col-name {
-    color: #2D2D2D;
-    letter-spacing: 2px;
+.output-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
 }
 
-.total-row .col-p,
-.total-row .col-c {
+.output-value {
     font-size: 1.25rem;
-    color: #000;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    color: var(--text-main);
+}
+
+.calc-summary {
+    padding: 15px 30px;
+    background-color: #FAFAFA;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+/* ============================================================
+   Placeholder state (Info tab)
+   ============================================================ */
+.placeholder-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.placeholder-state h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.placeholder-state p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0;
 }
 
 /* ============================================================
    MOBILE — iPhone (≤430px)
-   All desktop rules above are untouched.
    ============================================================ */
 @media (max-width: 430px) {
-
-    /* Phase 1 — Page-Level Layout */
     header {
         padding: 28px 16px;
     }
@@ -835,88 +299,61 @@ body.drawer-open {
         letter-spacing: 2px;
     }
 
-    #workout-content {
+    #main-content {
         padding: 0 12px;
-        box-sizing: border-box;
-        width: 100%;
+        margin: 20px auto;
     }
 
-    /* Phase 2 — Macro Calculator Container */
-    .macro-calc-container {
-        padding: 14px;
+    .calc-card {
         border-radius: 8px;
-        margin-bottom: 24px;
-        box-sizing: border-box;
-        width: 100%;
-        max-width: 100%;
+        margin-bottom: 20px;
     }
 
-    .calc-header h3 {
-        font-size: 0.85rem;
+    .calc-card-header {
+        padding: 16px;
+    }
+
+    .calc-card-header h3 {
+        font-size: 0.95rem;
         letter-spacing: 1px;
-        margin-bottom: 16px;
     }
 
-    /* Phase 3 — Table Columns & Typography */
-    .table-row {
-        grid-template-columns: 1.5fr 0.7fr 0.8fr 1fr;
-        padding: 10px 2px;
-        gap: 0 2px;
+    .calc-inputs {
+        padding: 16px;
+        gap: 12px;
     }
 
-    .table-row.header {
-        font-size: 0.55rem;
-        letter-spacing: 0.2px;
-    }
-
-    .col-name {
-        font-size: 0.8rem;
-    }
-
-    .col-p,
-    .col-c {
+    .calc-label {
         font-size: 0.65rem;
-        white-space: nowrap;
-        letter-spacing: -0.4px;
+        letter-spacing: 1px;
     }
 
-    .col-p {
-        margin-left: 0;
+    .calc-input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
     }
 
-    .total-row .col-p,
-    .total-row .col-c {
+    .calc-outputs {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .output-label {
         font-size: 0.7rem;
+        letter-spacing: 1px;
     }
 
-    /* Phase 4 — Grams Input */
-    .col-grams input {
-        width: 56px;
-        padding: 5px 4px;
-        font-size: 0.8rem;
+    .output-value {
+        font-size: 1rem;
     }
 
-    /* Phase 5 — Bento Cards Grid */
-    .layout-bento .grid-wrapper {
-        grid-template-columns: 1fr;
+    .calc-summary {
+        padding: 12px 16px;
+        font-size: 0.75rem;
     }
 
-    .layout-bento .bento-card {
-        padding: 14px;
-    }
-
-    .layout-bento h3 {
-        font-size: 0.8rem;
-        letter-spacing: 0.5px;
-    }
-
-    /* Phase 6 — Section Description & Focus Heading */
-    #workout-content h2 {
-        font-size: 1.1rem;
-    }
-
-    .section-description {
-        font-size: 0.85rem;
-        margin-top: 10px;
+    .placeholder-state {
+        padding: 40px 16px;
+        border-radius: 8px;
     }
 }

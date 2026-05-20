@@ -1,0 +1,12 @@
+{
+  "tabs": [
+    {
+      "id": "btc-1h-long",
+      "label": "BTC 1H Long"
+    },
+    {
+      "id": "info",
+      "label": "Info"
+    }
+  ]
+}

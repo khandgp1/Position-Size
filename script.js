@@ -134,6 +134,7 @@ function recalculate() {
     let liquidationPrice = 0;
     let positionSize = 0;
     let actualRisk = 0;
+    let initialMargin = 0;
     let distancePct = 0;
     
     if (entry > 0 && sl > 0 && risk > 0) {
@@ -149,6 +150,7 @@ function recalculate() {
                 actualRisk = result.actualRisk;
                 leverage = result.leverage;
                 liquidationPrice = result.liquidationPrice;
+                initialMargin = result.initialMargin;
             }
         }
     }
@@ -166,7 +168,8 @@ function recalculate() {
     if (summaryOut) {
         const riskStr = actualRisk > 0 ? `$${actualRisk.toFixed(2)}` : '—';
         const liqStr = liquidationPrice > 0 ? `$${liquidationPrice.toFixed(2)}` : '—';
-        summaryOut.textContent = `Actual Risk: ${riskStr} | Liq. Price: ${liqStr}`;
+        const initMarginStr = initialMargin > 0 ? `$${initialMargin.toFixed(2)}` : '—';
+        summaryOut.textContent = `Actual Risk: ${riskStr} | Liq. Price: ${liqStr} | Init. Margin: ${initMarginStr}`;
     }
 }
 

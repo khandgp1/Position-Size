@@ -60,11 +60,14 @@ function calculatePositionSize(entry, sl, risk, precision = 4) {
         liquidationPrice = entry * (1 - (1 / leverage) + MMR);
     }
 
+    const initialMargin = leverage > 0 ? positionSize / leverage : 0;
+
     return {
         positionSize: positionSize,
         positionUnitSize: positionUnitSize,
         actualRisk: actualRisk,
         leverage: leverage,
-        liquidationPrice: liquidationPrice
+        liquidationPrice: liquidationPrice,
+        initialMargin: initialMargin
     };
 }

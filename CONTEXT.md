@@ -94,7 +94,8 @@ window.onload → init()
   positionUnitSize: number,   // BTC quantity (floored to `precision` decimals)
   actualRisk:       number,   // Real dollar risk (unitSize × |entry - sl|)
   leverage:         number,   // Max whole-number leverage
-  liquidationPrice: number    // Estimated liquidation price for the computed leverage
+  liquidationPrice: number,   // Estimated liquidation price for the computed leverage
+  initialMargin:    number    // Initial margin required for the trade (positionSize / leverage)
 }
 ```
 
@@ -116,6 +117,7 @@ The position sizing algorithm works as follows:
    - `rawMaxLeverage = 1 / (1 + MMR - (sl / entry))`
    - `leverage = Math.floor(rawMaxLeverage)`
 6. **Liquidation price** — `entry × (1 - 1/leverage + MMR)` for the computed leverage.
+7. **Initial margin** — `positionSize / leverage` (falls back to 0 if leverage is 0).
 
 ---
 
@@ -142,7 +144,7 @@ The card is a single `.calc-card` element with these zones:
 | Input zone | `.calc-inputs` | 3 stacked input fields (Entry Price, Stop Loss, Risk) |
 | Divider | `.calc-divider` | 2px sage-green horizontal rule |
 | Output zone | `.calc-outputs` | 2 label-value rows (Leverage, Position Size) with sage-tinted background |
-| Summary line | `.calc-summary` | "Actual Risk: $X | Liq. Price: $Y" |
+| Summary line | `.calc-summary` | "Actual Risk: $X | Liq. Price: $Y | Init. Margin: $Z" |
 
 ### Input Fields
 

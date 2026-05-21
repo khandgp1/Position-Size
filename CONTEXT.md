@@ -8,7 +8,7 @@
 
 **Position Calc** is a personal BTC trading position-size calculator. Given three inputs — **Entry Price**, **Stop Loss**, and **Risk ($)** — it computes:
 
-- **Leverage** — the maximum whole-number leverage for the trade (capped at 125x; displays `∞` above that)
+- **Leverage** — the maximum whole-number leverage for the trade
 - **Position Size** — total USD order value (`positionUnitSize × entry`)
 - **Actual Risk** — the real dollar risk after precision-flooring the unit size
 - **Liquidation Price** — estimated liquidation price for the computed leverage
@@ -93,7 +93,7 @@ window.onload → init()
   positionSize:     number,   // Total order value in USD (unitSize × entry)
   positionUnitSize: number,   // BTC quantity (floored to `precision` decimals)
   actualRisk:       number,   // Real dollar risk (unitSize × |entry - sl|)
-  leverage:         number | "∞",  // Max whole-number leverage (capped at 125, "∞" if beyond)
+  leverage:         number,   // Max whole-number leverage
   liquidationPrice: number    // Estimated liquidation price for the computed leverage
 }
 ```
@@ -112,11 +112,10 @@ The position sizing algorithm works as follows:
 4. **Derive outputs**:
    - `positionSize = positionUnitSize × entry`
    - `actualRisk = positionUnitSize × (entry - sl)`
-5. **Leverage calculation** — Uses a 0.05% Maintenance Margin Rate (MMR):
+5. **Leverage calculation** — Uses a 0.5% Maintenance Margin Rate (MMR):
    - `rawMaxLeverage = 1 / (1 + MMR - (sl / entry))`
-   - If `rawMaxLeverage > 125` → leverage = `"∞"`
-   - Otherwise → `Math.floor(rawMaxLeverage)`
-6. **Liquidation price** — `entry × (1 - 1/leverage + MMR)` for finite leverage; equals `sl` when leverage is `"∞"`.
+   - `leverage = Math.floor(rawMaxLeverage)`
+6. **Liquidation price** — `entry × (1 - 1/leverage + MMR)` for the computed leverage.
 
 ---
 
@@ -235,7 +234,7 @@ Single `@media (max-width: 430px)` block at bottom of `style.css`. Reduces paddi
 
 ### Known Considerations
 
-- **MMR is hardcoded** at `0.0005` (0.05%) in `algo.js`. It is not configurable.
+- **MMR is hardcoded** at `0.005` (0.5%) in `algo.js`. It is not configurable.
 
 ---
 

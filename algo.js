@@ -48,15 +48,13 @@ function calculatePositionSize(entry, sl, risk, precision = 4) {
     const actualRisk = positionUnitSize * (entry - sl);
 
     // Leverage & Liquidation Price Calculation
-    const MMR = 0.0005; // 0.05% Maintenance Margin
+    const MMR = 0.005; // 0.5% Maintenance Margin
     const rawMaxLeverage = 1 / (1 + MMR - (sl / entry));
     
-    const leverage = rawMaxLeverage > 125 ? "∞" : Math.floor(rawMaxLeverage);
+    const leverage = Math.floor(rawMaxLeverage);
     
     let liquidationPrice;
-    if (leverage === "∞") {
-        liquidationPrice = sl; // At maximum theoretical leverage, Liq Price equals Stop Loss
-    } else if (leverage === 0) {
+    if (leverage === 0) {
         liquidationPrice = 0; // Edge case: leverage rounds to 0 for extremely wide stops
     } else {
         liquidationPrice = entry * (1 - (1 / leverage) + MMR);

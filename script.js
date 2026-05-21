@@ -159,8 +159,7 @@ function recalculate() {
     const summaryOut = document.getElementById('calc-summary-line');
     
     if (levOut) {
-        if (leverage === "∞") levOut.textContent = "∞";
-        else levOut.textContent = leverage > 0 ? `${leverage}x` : '—';
+        levOut.textContent = leverage > 0 ? `${leverage}x` : '—';
     }
     if (posOut) posOut.textContent = positionSize > 0 ? `$${positionSize.toFixed(2)}` : '—';
     

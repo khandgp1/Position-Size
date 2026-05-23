@@ -51,7 +51,7 @@ function calculatePositionSize(entry, sl, risk, precision = 4) {
     const MMR = 0.005; // 0.5% Maintenance Margin
     const rawMaxLeverage = 1 / (1 + MMR - (sl / entry));
     
-    const leverage = Math.floor(rawMaxLeverage);
+    const leverage = Math.min(Math.floor(rawMaxLeverage), 125);
     
     let liquidationPrice;
     if (leverage === 0) {

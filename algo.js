@@ -35,7 +35,11 @@ function calculatePositionSize(entry, sl, risk, precision = 4) {
     }
 
     // Core math
-    const rawUnitSize = risk / (entry - sl);
+    const takerFeeRate = 0.0001; // 0.01% taker fee on SL exit
+    const priceDifference = entry - sl;
+    const exitFeePerUnit = sl * takerFeeRate;
+    const rawUnitSize = risk / (priceDifference + exitFeePerUnit);
+    
     const multiplier = Math.pow(10, precision);
     const positionUnitSize = Math.floor(rawUnitSize * multiplier) / multiplier;
 
@@ -45,7 +49,7 @@ function calculatePositionSize(entry, sl, risk, precision = 4) {
     }
 
     const positionSize = positionUnitSize * entry;
-    const actualRisk = positionUnitSize * (entry - sl);
+    const actualRisk = (positionUnitSize * priceDifference) + (positionUnitSize * exitFeePerUnit);
 
     // Leverage & Liquidation Price Calculation
     const MMR = 0.005; // 0.5% Maintenance Margin

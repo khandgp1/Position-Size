@@ -147,7 +147,9 @@ footer {
 .calc-card-header {
     padding: 25px;
     border-bottom: 1px solid var(--border);
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .calc-card-header h3 {
@@ -158,6 +160,28 @@ footer {
     color: var(--text-main);
     text-transform: uppercase;
 }
+
+.direction-badge {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(2px);
+    pointer-events: none;
+}
+
+.direction-badge.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 .calc-inputs {
     padding: 30px;
@@ -254,7 +278,38 @@ footer {
     font-style: italic;
 }
 
-/* ============================================================
+.calc-btn-secondary {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.calc-btn-secondary:hover {
+    background: var(--accent);
+    color: var(--card-bg);
+}
+
+.calc-btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(138, 154, 91, 0.15);
+}
+
+.calc-btn-secondary:active {
+    transform: scale(0.98);
+}
+
+/* ============================================================ */
    Placeholder state (Info tab)
    ============================================================ */
 .placeholder-state {
@@ -316,6 +371,11 @@ footer {
     .calc-card-header h3 {
         font-size: 0.95rem;
         letter-spacing: 1px;
+    }
+
+    .direction-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
     }
 
     .calc-inputs {

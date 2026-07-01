@@ -62,6 +62,7 @@ function renderCalculator(container) {
     card.innerHTML = `
         <div class="calc-card-header">
             <h3>Position Size Calculator</h3>
+            <span id="direction-badge" class="direction-badge hidden"></span>
         </div>
         <div class="calc-inputs">
             <div class="calc-field">
@@ -76,6 +77,7 @@ function renderCalculator(container) {
                 <label class="calc-label" for="risk-amount">Risk ($)</label>
                 <input type="number" inputmode="decimal" id="risk-amount" class="calc-input" placeholder="0.00" step="any" value="10">
             </div>
+            <button type="button" id="clear-prices-btn" class="calc-btn-secondary">Clear Prices</button>
         </div>
         <hr class="calc-divider">
         <div class="calc-outputs">
@@ -103,6 +105,19 @@ function renderCalculator(container) {
             inputEl.oninput = recalculate;
         }
     });
+    
+    // Setup clear prices button
+    const clearBtn = document.getElementById('clear-prices-btn');
+    if (clearBtn) {
+        clearBtn.onclick = () => {
+            const entryEl = document.getElementById('entry-price');
+            const slEl = document.getElementById('stop-loss');
+            if (entryEl) entryEl.value = '';
+            if (slEl) slEl.value = '';
+            recalculate();
+            if (entryEl) entryEl.focus();
+        };
+    }
     
     // Perform initial run
     recalculate();
@@ -136,6 +151,7 @@ function recalculate() {
     let actualRisk = 0;
     let initialMargin = 0;
     let distancePct = 0;
+    let direction = null;
     
     if (entry > 0 && sl > 0 && risk > 0) {
         if (entry !== sl) {
@@ -151,6 +167,7 @@ function recalculate() {
                 leverage = result.leverage;
                 liquidationPrice = result.liquidationPrice;
                 initialMargin = result.initialMargin;
+                direction = result.direction;
             }
         }
     }
@@ -159,6 +176,19 @@ function recalculate() {
     const levOut = document.getElementById('leverage-output');
     const posOut = document.getElementById('position-output');
     const summaryOut = document.getElementById('calc-summary-line');
+    const badge = document.getElementById('direction-badge');
+    
+    if (badge) {
+        if (direction === 'long') {
+            badge.textContent = 'LONG ▲';
+            badge.className = 'direction-badge visible';
+        } else if (direction === 'short') {
+            badge.textContent = 'SHORT ▼';
+            badge.className = 'direction-badge visible';
+        } else {
+            badge.className = 'direction-badge hidden';
+        }
+    }
     
     if (levOut) {
         levOut.textContent = leverage > 0 ? `${leverage}x` : '—';
